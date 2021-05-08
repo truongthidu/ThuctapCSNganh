@@ -52,7 +52,7 @@
                                 {{ Auth::user()->name }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" style="line-height: 20px">
-                                <a class="dropdown-item" href="#">Tài khoản</a>
+                                <a class="dropdown-item" href="{{ url("user/info") }}">Tài khoản</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -84,12 +84,13 @@
                     </div>
                 </div>
             </div>
-        </div><div class="container">
+        </div>
+        <div class="container">
             <div class="inner-header">
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href="{{ url('user/landingpage') }}">
+                            <a href="{{ url('/') }}">
                                 <img src="{{ asset('img/logo.png') }}" alt="">
                             </a>
                         </div>
@@ -163,47 +164,51 @@
                 </div>
             </div>
         </div>
-        <div class="nav-item">
-            <div class="container">
-                <div class="nav-depart">
-                    <div class="depart-btn">
-                        <i class="ti-menu"></i>
-                        <span>All departments</span>
-                        <ul class="depart-hover">
-                            <li class="active"><a href="#">Women’s Clothing</a></li>
-                            <li><a href="#">Men’s Clothing</a></li>
-                            <li><a href="#">Underwear</a></li>
-                            <li><a href="#">Kid's Clothing</a></li>
-                            <li><a href="#">Brand Fashion</a></li>
-                            <li><a href="#">Accessories/Shoes</a></li>
-                            <li><a href="#">Luxury Brands</a></li>
-                            <li><a href="#">Brand Outdoor Apparel</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <nav class="nav-menu mobile-menu">
-                    <ul>
-                        <li><a href="{{ url('user/landingpage') }}">Home</a></li>
-                        <li><a href="{{ url('user/newclothing') }}">New Clothing</a></li>
-                        <li><a href="javascript:">Collection</a>
-                            <ul class="dropdown">
-                                <li><a href="{{ url("user/product/collection/men") }}">Men's</a></li>
-                                <li><a href="{{ url("user/product/collection/women") }}">Women's</a></li>
-                                <li><a href="{{ url("user/product/collection/child") }}">Kid's</a></li>
+        {{-- @if (url()->current() == url("user/info") || url()->current() == url("user/info/update")) --}}
+            {{-- <div class="detail-route"><a href="#">Trang chủ</a>><a aria-disabled="true">User</a></div> --}}
+        {{-- @else --}}
+            <div class="nav-item">
+                <div class="container">
+                    <div class="nav-depart">
+                        <div class="depart-btn">
+                            <i class="ti-menu"></i>
+                            <span>All departments</span>
+                            <ul class="depart-hover">
+                                <li class="active"><a href="#">Women’s Clothing</a></li>
+                                <li><a href="#">Men’s Clothing</a></li>
+                                <li><a href="#">Underwear</a></li>
+                                <li><a href="#">Kid's Clothing</a></li>
+                                <li><a href="#">Brand Fashion</a></li>
+                                <li><a href="#">Accessories/Shoes</a></li>
+                                <li><a href="#">Luxury Brands</a></li>
+                                <li><a href="#">Brand Outdoor Apparel</a></li>
                             </ul>
-                        </li>
-                        <li><a href="{{ url('user/blog') }}">Blog</a></li>
-                        <li><a href="{{ url('user/contact') }}">Contact</a></li>
-                        {{-- <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                        <li><a href="./check-out.html">Checkout</a></li>
-                        <li><a href="./faq.html">Faq</a></li>
-                        <li><a href="./register.html">Register</a></li>
-                        <li><a href="./login.html">Login</a></li> --}}
-                    </ul>
-                </nav>
-                <div id="mobile-menu-wrap"></div>
+                        </div>
+                    </div>
+                    <nav class="nav-menu mobile-menu">
+                        <ul>
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('user/introduce') }}">Introduce</a></a></li>
+                            <li><a href="javascript:">Collection</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ url("user/product/collection/men") }}">Men's</a></li>
+                                    <li><a href="{{ url("user/product/collection/women") }}">Women's</a></li>
+                                    <li><a href="{{ url("user/product/collection/child") }}">Kid's</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{{ url('user/blog') }}">Blog</a></li>
+                            <li><a href="{{ url('user/contact') }}">Contact</a></li>
+                            {{-- <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                            <li><a href="./check-out.html">Checkout</a></li>
+                            <li><a href="./faq.html">Faq</a></li>
+                            <li><a href="./register.html">Register</a></li>
+                            <li><a href="./login.html">Login</a></li> --}}
+                        </ul>
+                    </nav>
+                    <div id="mobile-menu-wrap"></div>
+                </div>
             </div>
-        </div>
+        {{-- @endif --}}
         <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     </header>
     <!-- Header End -->

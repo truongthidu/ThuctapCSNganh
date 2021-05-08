@@ -66,7 +66,7 @@ class LoginController extends Controller
         );
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)){
-            return redirect('user/landingpage');
+            return redirect('/');
         }
         else{
             return redirect()->back()->with('status', 'Đăng nhập thất bại');

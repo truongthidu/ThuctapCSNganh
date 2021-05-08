@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('You are logged in!') }}<br>
+                    <a href="{{ url("/") }}" class="btn btn-primary" style="float: right">Đi tới trang chủ<i class="fas fa-arrow-circle-right" style="margin-left: 10px"></i></a>
                 </div>
             </div>
         </div>

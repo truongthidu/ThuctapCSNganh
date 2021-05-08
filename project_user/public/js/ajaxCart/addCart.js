@@ -19,7 +19,6 @@
                 data.forEach(element => {
                     $(".number_shopping_cart").text(element.countCart);
                     $(".alert-add-cart").html(element.alertAddCart);
-                    // // $("html, body").animate({scrollTop: 0}, "slow");
                     // $("body").click(function(){
                     //     $("div.alert-add-cart").addClass("display-none");
                     // });

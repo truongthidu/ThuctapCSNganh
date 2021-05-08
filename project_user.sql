@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 06:21 PM
+-- Generation Time: May 08, 2021 at 07:40 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -227,27 +227,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newclothings`
---
-
-CREATE TABLE `newclothings` (
-  `id` int(11) NOT NULL,
-  `title_newclothing` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `price_newclothing` int(11) NOT NULL,
-  `discount_newclothing` int(11) DEFAULT NULL,
-  `img_newclothing` varchar(1000) COLLATE utf8mb4_vietnamese_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
-
---
--- Dumping data for table `newclothings`
---
-
-INSERT INTO `newclothings` (`id`, `title_newclothing`, `price_newclothing`, `discount_newclothing`, `img_newclothing`) VALUES
-(1, 'Online Exclusive Ken Scott print silk shirt', 1700, NULL, 'http://localhost/project_websitebanhang/project_user/public/img/newclosthing/newclosthing-1.jpg');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `password_resets`
 --
 
@@ -256,6 +235,13 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('vudanhhungphi@gmail.com', '$2y$10$WUvs9yJCgKCXga/Kg97l8ODekJOb5VKOHt9RzTKdEQVN2tb6dLWWe', '2021-05-06 07:17:41');
 
 -- --------------------------------------------------------
 
@@ -345,8 +331,13 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
+  `phoneNumber` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day` int(2) DEFAULT NULL,
+  `month` int(2) DEFAULT NULL,
+  `year` int(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -355,8 +346,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Hùng Phi', 'vudanhhungphi@gmail.com', NULL, '$2y$10$zHroHKyCWPhubhhiTHneOOTlimsNMoqp0wTPvUeDE.bXcLfpI/.C2', 'XuXN2On936FyBRYJRBpdpS5woLzVc3BNWZapiQLSq8FonRSBqC7IfX9ZbIUS', '2021-03-10 10:07:10', '2021-03-10 10:07:10');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `phoneNumber`, `password`, `remember_token`, `gender`, `day`, `month`, `year`, `created_at`, `updated_at`) VALUES
+(3, 'Hùng Phi', 'vudanhhungphi021@gmail.com', NULL, '0398391694', '$2y$10$yDmACFuBmHtwccfymphl0OClheAvBZ5oTetyWFwRpQVg7bnTDpZQi', 'g4Db6R5UviaS81vPZpNQGjkvYKwPj3ejzBhIozO88vkdRnaPxwjRCTpJjpop', 'Male', 20, 4, 2000, '2021-05-06 07:18:23', '2021-05-07 18:26:06'),
+(4, 'VDHP', 'vudanhhungphi@yahoo.com', NULL, NULL, '$2y$10$PrZ0sfLKeK0CWfT95HNrBu0YIVBB4cZa32Z83oPh1EdVjwGFOIa7i', NULL, NULL, NULL, NULL, NULL, '2021-05-07 02:49:41', '2021-05-07 02:49:41');
 
 --
 -- Indexes for dumped tables
@@ -414,12 +406,6 @@ ALTER TABLE `feature_img_women`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `newclothings`
---
-ALTER TABLE `newclothings`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -509,12 +495,6 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
--- AUTO_INCREMENT for table `newclothings`
---
-ALTER TABLE `newclothings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -530,7 +510,7 @@ ALTER TABLE `recent_blogs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

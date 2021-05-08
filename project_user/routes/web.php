@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get("user/landingpage", "LandingpageController@show");
-Route::get("user/newclothing", "NewclothingController@show");
+Route::get("/", "LandingpageController@show");
+Route::get("user/introduce", "IntroduceController@show");
 Route::get("user/blog", "BlogController@show");
 Route::get("user/contact", "ContactController@show");
 Route::get("user/blogdetails/{id}", "BlogDetailsController@show");
@@ -30,6 +30,10 @@ Route::get("user/product/collection/{nameCollection}", "ProductController@show")
 Route::get("user/product/search", "ProductController@search");
 // Route::get("user/product/productOrderBy", "ProductController@productOrderBy");
 Route::get("user/productDetail/{id}", "ProductDetailController@show");
+
+// ===========================Information User============================== //
+Route::get("user/info", "UserInfoController@show");
+Route::post("user/info/update", "UserInfoController@update");
 
 Route::middleware('auth')->group(function () {
     // ===========================Shopping Cart============================== //
