@@ -4344,7 +4344,7 @@ i.shopping_cart{
 	color: #fff;
     background: #e7ab3c;
     height: 20px;
-	right: 85px;
+	right: 45px;
     top: -3px;
     border-radius: 40px;
     display: inline-block;
@@ -4503,6 +4503,7 @@ input[type="submit"]{
 #btnDropDownUsername{
 	padding: 7px 15px;
 	line-height: 0px;
+	margin-left: 10px;
 }
 #btnDropDownUsername:focus{
 	outline: none;
@@ -4624,8 +4625,8 @@ input[type="submit"]{
 	width: 200px;
 }
 
-.userinfo .form-avatar .upload-cirle-avatar{
-    border: 1px solid;
+.userinfo .form-avatar .upload-circle-avatar{
+    /* border: 1px solid; */
 	width: 100%;
     height: 100%;
 	margin-bottom: 20px;
@@ -4639,10 +4640,6 @@ input[type="submit"]{
 .userinfo .form-avatar .upload-avatar{
 	height: 100px;
     width: 100px;
-}
-
-.userinfo .form-avatar input[type="file"]{
-	display: none;
 }
 
 .userinfo .form-avatar .btnUploadImage{
@@ -4665,22 +4662,8 @@ input[type="submit"]{
 	color: #555;
 }
 
-.validateForm{
-	margin-left: 155px;
-}
-
-.addPhoneNumber{
-    font-size: 13px;
-	width: 150px;
-	display: block;
-}
-
 .relate_pass{
 	display: none;
-}
-
-.alertPass{
-	color: #cc2424;
 }
 
 .alertMessage{
@@ -4698,16 +4681,56 @@ input[type="submit"]{
     background: #f6f6f4;
 }
 
+.d-block{
+	display: block;
+}
+.d-flex{
+	display: flex;
+}
+.d-none{
+	display: none;
+}
+
 .hiddenInfo{
 	display: flex;
 	padding-left: 7px;
 	margin-right: 5px;
 }
-
-.convertInfoToStart{
-	margin-right: 5px;
+.hiddenInfo a{
+	float: right;
 }
 
-.border-none{
-	border: none !important;
+.convertInfo{
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.alertError strong{
+	font-size: 80%;
+    color: #dc3545;
+	display: block;
+}
+
+.valiFormError{
+	margin-left: 155px;
+}
+
+.avatar{
+	position: absolute;
+	left: 10px;
+	top: 14px;
+}
+.circle-avatar{
+	height: 30px;
+    width: 30px;
+	/* border: 1px solid#000; */
+	border-radius: 50%;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.userinfo .form-avatar .alertErrorImage{
+	width: 200px;
 }

@@ -40,17 +40,19 @@ class User extends Authenticatable
     ];
     
     public static function convertEmail($result){
-        $result_explode = explode("@", $result);
-        $result = Str::of($result_explode[0])->limit(5, "*****");
-        return $result."@".$result_explode[1];
+        if($result){
+            $result_explode = explode("@", $result);
+            $result = Str::of($result_explode[0])->limit(5, "*****");
+            return $result."@".$result_explode[1];
+        }else return $result;
     }
 
     public static function convertPhoneNumber($result){
-        return $result = Str::of($result)->limit(0, "********").Str::substr($result, -2);
+        return $result = Str::of($result)->limit(0, "********").Str::substr($result, -4);
     }
 
-    public static function checkIsset($temp){
-        if(isset($temp)) return $temp;
-        else return "";
+    public static function checkIsset($user, $request_user){
+        if(isset($request_user)) return $user = $request_user;
+        else return $user = $user;
     }
 }

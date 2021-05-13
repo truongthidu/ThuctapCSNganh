@@ -4,40 +4,62 @@
         <div class="alert alert-success alertMessage">
             <i class="fas fa-check-circle"></i>{{ session("success") }}
         </div>
-    @elseif(session("error"))
-        <div class="alert alert-danger alertMessage">
-            <i class="fas fa-exclamation-circle"></i>{{ session("error") }}
-        </div>
     @else
         <div class="alertMessage">
         </div>
     @endif
     <div class="userinfo">
-        <form action="{{ url("user/info") }}" method="POST">
-            {{-- enctype="multipart/form-data" --}}
+        <form action="{{ url("user/info") }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="title-userinfo">
                 <h4>User information</h4>
                 <h6>Manage profile information for account security</h6>
             </div>
             <div style="position: relative;">
-                <div class="form-userinfo">
+                <div class="form-userinfo d-flex">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" size="35" value="{{ isset(Auth::user()->name) ? Auth::user()->name : "" }}">
+                    <div class="d-block" style="padding-left: 7px;">
+                        <input type="text" id="username" name="username" size="35" value="{{ isset(Auth::user()->name) ? Auth::user()->name : "" }}" placeholder="E.g: HngPi" class="@error('username') is-invalid @enderror">
+                        @error('username')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
-                <div class="form-userinfo">
+                <div class="form-userinfo hiddenInfo">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" size="30" class="border-none" value="{{ isset(Auth::user()->email) ? $convertEmail : "" }}"><a href="#">Thay đổi</a>
+                    <div class="d-block">
+                        <div class="d-flex">
+                            <div class="convertInfo">{{ isset(Auth::user()->email) ? $convertEmail : "" }}</div>
+                            <a href="javascript:" id="a-email">Thay đổi</a>
+                        </div>
+                        <div class="d-none show-email">
+                            <input type="email" id="email" name="email" value="{{ isset(Auth::user()->email) ? Auth::user()->email : "" }}" data-id="{{ empty($arrErr) ? 0 : 1 }}" size="35" placeholdedr="E.g: vudanhhungphi@gmail.com" class="@error('email') is-invalid @enderror" id="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
-                <div class="form-userinfo">
+                <div class="form-userinfo hiddenInfo">
                     <label for="phoneNumber">Phone number</label>
-                    <input type="text" id="number" name="phoneNumber" size="30" class="border-none" value="{{ isset(Auth::user()->phoneNumber) ? $convertPhoneNumber : "" }}" class="@error('phoneNumber') is-invalid @enderror"><a href="#">Thay đổi</a>
-                    @error('phoneNumber')
-                        <span class="invalid-feedback validateForm" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    <br><span class="addPhoneNumber">(You should add phone number for added security)</span>
+                    <div class="d-block">
+                        <div class="d-flex">
+                            <div class="convertInfo">{{ isset(Auth::user()->phoneNumber) ? $convertPhoneNumber : "" }}</div>
+                            <a href="javascript:" id="a-phoneNumber">Thay đổi</a>
+                        </div>
+                        <div class="d-none show-phoneNumber">
+                            <input type="text" id="phoneNumber" name="phoneNumber" value="{{ isset(Auth::user()->phoneNumber) ? Auth::user()->phoneNumber : "" }}" placeholder="E.g: 0398391694" size="35" class="@error('phoneNumber') is-invalid @enderror">
+                            @error('phoneNumber')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="form-userinfo">
                     <label for="password">Gender</label>
@@ -53,20 +75,28 @@
                 </div>
                 <div class="form-userinfo relate_pass">
                     <label for="password">Password</label>
-                    <input type="password" id="password" size="35" name="password" placeholder="Enter old password">
-                    {{-- <span class="validateForm alertPass">
-                        @if (isset($error))
-                            @foreach ($error as $item)
-                                <strong>{{ $item }}</strong>
+                    <input type="password" id="password" size="35" name="password" placeholder="Enter old password" class="@error('password') is-invalid @enderror">
+                    @error('password')
+                        <span class="invalid-feedback valiFormError" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <span class="alertError">
+                        @if(isset($error))
+                            @foreach ($error as $key => $item)
+                                @if ($key == "password")
+                                    <strong>{{ $item }}</strong>
+                                @endif
                             @endforeach
+                        @else {{ "" }}
                         @endif
-                    </span> --}}
+                    </span>
                 </div>
                 <div class="form-userinfo relate_pass">
                     <label for="new_password">New password</label>
                     <input type="password" id="new_password" size="35" name="new_password" placeholder="Password from 6 to 32 characters" class="@error('new_password') is-invalid @enderror">
                     @error('new_password')
-                        <span class="invalid-feedback validateForm" role="alert">
+                        <span class="invalid-feedback valiFormError" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -75,7 +105,7 @@
                     <label for="new_password_confirmation">Confirm password</label>
                     <input type="password" id="new_password_confirmation" size="35" name="new_password_confirmation" placeholder="Enter new password again" class="@error('password_confirmation') is-invalid @enderror">
                     @error('password_confirmation')
-                        <span class="invalid-feedback validateForm" role="alert">
+                        <span class="invalid-feedback valiFormError" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -110,10 +140,15 @@
                 </div>
                 <div class="form-avatar">
                     <div class="upload-avatar">
-                        <div class="upload-cirle-avatar"><br></div>
+                        <div class="upload-circle-avatar" style="background-image: url({{ asset("/storage/images/users/".Auth::user()->img) }})">
+                        </div>
                         <div>
-                            <input type="file" name="uploadCircleAvatar" id="" value="Choose file">
-                            <button type="button" class="btnUploadImage" name="btnUploadImage">Choose file</button>
+                            <input type="file" name="image" value="{{ asset("/storage/images/users/".Auth::user()->img) }}" class="@error('image') is-invalid @enderror">
+                            @error('image')
+                                <span class="invalid-feedback alertErrorImage" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -127,22 +162,18 @@
         $("#checkboxPass").change(function(){
             $(".relate_pass").slideToggle(350).css("display", "block");
         });
-
-        // $(".btnUpdate").click(function(){
-        //     var data = "Thành công";
-        //     $.ajax({
-        //         data: data,
-        //         url: "user/info/update",
-        //         method: "POST",
-        //         dataType: "JSON",
-        //         success: function(data){
-        //             console.log(data);
-        //         },
-        //         error: function(xhr, thrownError){
-        //             console.log(xhr.responseText); console.log(xhr.status); console.log(thrownError);
-        //         },
-        //     });
-        // });
+        $("#a-email").click(function(){
+            $(".show-email").slideToggle(350).removeClass("d-none");
+        });
+        $("#a-phoneNumber").click(function(){
+            $(".show-phoneNumber").slideToggle(350).removeClass("d-none");
+        });
+        $(".btnUpdate").click(function(){
+            if((($("#email")).attr("data-id")) == 1){
+                $(".show-email").removeClass("d-none");
+                $(".show-phoneNumber").removeClass("d-none");
+            }
+        });
     });
 </script>
 @endsection

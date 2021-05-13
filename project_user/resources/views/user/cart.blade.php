@@ -76,8 +76,8 @@
                     @else
                         <div class="empty_product">
                             <img src="{{ asset('img/sanphamtrong.png') }}" alt="" width="190px">
-                            <p class="empty_note">Hiện tại không có sản phẩm nào trong giỏ hàng!!!</p>
-                            <a href="{{ url('user/product/collection/men') }}" class="empty_btn">Tiếp tục mua sắm</a>
+                            <p class="empty_note">Currently, There are no items in the shopping cart !!!</p>
+                            <a href="{{ url('user/product/collection/men') }}" class="empty_btn">Continue to shop</a>
                         </div>
                     @endif
                 </form>

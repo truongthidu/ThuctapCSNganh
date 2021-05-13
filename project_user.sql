@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2021 at 07:40 AM
+-- Generation Time: May 13, 2021 at 04:17 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -241,7 +241,8 @@ CREATE TABLE `password_resets` (
 --
 
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
-('vudanhhungphi@gmail.com', '$2y$10$WUvs9yJCgKCXga/Kg97l8ODekJOb5VKOHt9RzTKdEQVN2tb6dLWWe', '2021-05-06 07:17:41');
+('vudanhhungphi@gmail.com', '$2y$10$WUvs9yJCgKCXga/Kg97l8ODekJOb5VKOHt9RzTKdEQVN2tb6dLWWe', '2021-05-06 07:17:41'),
+('vudanhhungphi021@gmail.com', '$2y$10$ouBa6xfRq9Jn7VkL9z3nyu9aWZj/F2oQb5.dDjbnUxxKpQySLFRa.', '2021-05-10 18:13:46');
 
 -- --------------------------------------------------------
 
@@ -329,15 +330,16 @@ INSERT INTO `recent_blogs` (`id`, `categoryblog_id`, `title_recent_blog`, `img_r
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `phoneNumber` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL DEFAULT '',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gender` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `day` int(2) DEFAULT NULL,
   `month` int(2) DEFAULT NULL,
   `year` int(5) DEFAULT NULL,
+  `img` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -346,9 +348,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `phoneNumber`, `password`, `remember_token`, `gender`, `day`, `month`, `year`, `created_at`, `updated_at`) VALUES
-(3, 'Hùng Phi', 'vudanhhungphi021@gmail.com', NULL, '0398391694', '$2y$10$yDmACFuBmHtwccfymphl0OClheAvBZ5oTetyWFwRpQVg7bnTDpZQi', 'g4Db6R5UviaS81vPZpNQGjkvYKwPj3ejzBhIozO88vkdRnaPxwjRCTpJjpop', 'Male', 20, 4, 2000, '2021-05-06 07:18:23', '2021-05-07 18:26:06'),
-(4, 'VDHP', 'vudanhhungphi@yahoo.com', NULL, NULL, '$2y$10$PrZ0sfLKeK0CWfT95HNrBu0YIVBB4cZa32Z83oPh1EdVjwGFOIa7i', NULL, NULL, NULL, NULL, NULL, '2021-05-07 02:49:41', '2021-05-07 02:49:41');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `phoneNumber`, `password`, `remember_token`, `gender`, `day`, `month`, `year`, `img`, `created_at`, `updated_at`) VALUES
+(7, 'Hùng Phi', 'vudanhhungphi021@gmail.com', NULL, '0398391694', '$2y$10$XhTiIVjvmurqZv2wVYWI9OQVayjuRF40H3mLtkssJ1BO/7.d6a.tC', 'HLhmoufkrAvQTtrxZLpEgJXCgGQZP8bnMmRxdPjJAT0mzU3rB1vmc3A44zBi', 'Male', 10, 10, 2000, '154719519_505699850412543_391153293435411780_n.jpg', '2021-05-10 18:42:11', '2021-05-12 05:31:39');
 
 --
 -- Indexes for dumped tables
@@ -510,7 +511,7 @@ ALTER TABLE `recent_blogs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
