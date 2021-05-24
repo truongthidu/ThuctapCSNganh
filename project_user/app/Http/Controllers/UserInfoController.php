@@ -18,9 +18,10 @@ class UserInfoController extends Controller
     public function index()
     {
         //
+        $user = Auth::user();
         $convertEmail = User::convertEmail(Auth::user()->email);
         $convertPhoneNumber = User::convertPhoneNumber(Auth::user()->phoneNumber);
-        return view("user/userinfo", compact('convertEmail', 'convertPhoneNumber'));
+        return view("user/userinfo", compact('convertEmail', 'convertPhoneNumber', 'user'));
     }
 
     /**
@@ -41,13 +42,14 @@ class UserInfoController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::find(Auth::user()->id);
+        $userAll = User::all();
         if(isset($request->btnUpdate)){
             $error = array();
-            $user = User::find(Auth::user()->id);
 
-            $usernameAndEmail = $request->validate(
+            $request->validate(
                 [
-                    'username' => 'bail|required|min:3',
+                    'username' => 'bail|required|min:3|regex:/^[a-zA-Z0-9-._ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/',
                     'email' => 'bail|required|min:15',
                 ],
                 [
@@ -55,7 +57,12 @@ class UserInfoController extends Controller
                     'min' => 'The minimum length of email is :min',
                 ]
             );
-            // if(!empty($user->email)) $error['email'] = "This email already exists !";
+
+            foreach($userAll as $item){
+                if($user->email != $request->email){
+                    if($item->email == $request->email) $error['email'] = "This email already exists !";
+                }
+            }
 
             if(!empty($request->phoneNumber)){
                 $request->validate(
@@ -97,47 +104,31 @@ class UserInfoController extends Controller
                         'max' => 'The pictures are limited to no more than 2M',
                     ]
                 );
-                $destination_path = 'public/images/users';
-                $image = $request->file('image');
-                $imageName = $image->getClientOriginalName();
-                $path = $image->storeAs($destination_path, $imageName);
-                $user->img = $imageName;
-                $imageExtension = $image->getClientOriginalExtension();
+                if($request->hasFile("image")){
+                    $destination_path = 'public/images/users';
+                    $image = $request->file('image');
+                    $imageName = $image->getClientOriginalName();
+                    $path = $image->storeAs($destination_path, $imageName);
+                    $user->img = $imageName;
+                    $imageExtension = $image->getClientOriginalExtension();
+                }
             }
-            // hàm strcasecmp($ts1, $ts2): so sánh 2 tham số truyền vào, lấy độ dài ts1-ts2, khá là hay !!!
-            // if(strcasecmp($imageExtension, "jpg")!=0 || strcasecmp($imageExtension, "jpeg")!=0  || strcasecmp($imageExtension, "png")!=0){
-            //     $error['img'] = "The picture file with incorrect format (e.g: '.jpg', '.jpeg', '.png')";   
-            // }
-            // return $request;
-            
+
             if(empty($error)){
-                if(!empty($request->name)) $user->name = $request->username;
-                else $user->name = $user->name;
-                if(!empty($request->email)) $user->email = $request->email;
-                else $user->email = $user->email;
-                if(!empty($request->phoneNumber)) $user->phoneNumber = $request->phoneNumber;
-                else $user->phoneNumber = $user->phoneNumber;
-                $user->gender = $request->gender;
+                $user->name = User::checkIsset($user->name, $request->username);
+                $user->email = User::checkIsset($user->email, $request->email);
                 if(!empty($request->new_password)) $user->password = Hash::make($request->new_password);
                 else $user->password = $user->password;
-                $user->day = $request->day;
-                $user->month = $request->month;
-                $user->year = $request->year;
+                $user->phoneNumber = User::checkIsset($user->phoneNumber, $request->phoneNumber);
+                $user->gender = User::checkIsset($user->gender, $request->gender);
+                $user->day = User::checkIsset($user->day, $request->day);
+                $user->month = User::checkIsset($user->month, $request->month);
+                $user->year = User::checkIsset($user->year, $request->year);
                 $user->save();
-                Auth::user()->name = $request->username;
-                Auth::user()->email = $request->email;
-                Auth::user()->phoneNumber = $request->phoneNumber;
-                Auth::user()->gender = $request->gender;
-                Auth::user()->img = $user->img;
-                Auth::user()->day = $request->day;
-                Auth::user()->month = $request->month;
-                Auth::user()->year = $request->year;
                 $request->session()->flash('success', "Your account has been updated");
             }
-            else $request->session()->flash('success', '');
-            $convertEmail = $user->convertEmail($user->email);
-            $convertPhoneNumber = $user->convertPhoneNumber($user->phoneNumber);
-            return view("user/userinfo", compact('convertEmail', 'convertPhoneNumber', 'error'));
+            else{ $request->session()->flash('success', ''); }
+            return back()->with('error', $error);
         }
     }
 
@@ -147,7 +138,7 @@ class UserInfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         //
     }

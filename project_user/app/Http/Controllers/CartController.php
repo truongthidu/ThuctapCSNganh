@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Categoryclothing;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -15,29 +15,52 @@ class CartController extends Controller
 
     function add($id){
         $product = Product::find($id);
-        $addCart = Cart::add([
+        $prodCateAll = Categoryclothing::all();
+        $cartCotent = Cart::content();
+        $qtyTotal = $product->qty;
+        $qtyUser = $_GET['qty'];
+        $prodCate = "";
+        $showQtyErr = "";
+        $cart = array([
             'id' => $product->id, 
             'name' => $product->name,
             'price' => $product->price,
-            'qty' => 1,
+            'qty' => $qtyUser,
             'options' => [
-                'categoryclothing_title' => $product->categoryclothing_title,
+                'categoryclothing_id' => $prodCate,
                 'discount' => $product->discount, 
                 'img' => $product->img,
             ],
         ]);
+        $qtyCart = 0;
+        foreach($prodCateAll as $item){
+            if($item->id == $product->categoryclothing_id){
+                $prodCate = $item->title_category_clothing;
+            }
+        }
+        if($qtyUser < $qtyTotal || $qtyUser == $qtyTotal ){
+            if(Cart::count()>0){
+                foreach($cartCotent as $item){
+                    if($item->qty > $qtyTotal) $temp=0;
+                    else $temp = $qtyTotal-$item->qty;
+                    if($item->id == $product->id) $qtyCart = $item->qty;
+                }
+                if($qtyUser + $qtyCart > $qtyTotal) {$showQtyErr = "Remaining quantity to be purchased: ".$temp;}
+                else{
+                    Cart::add($cart);
+                }
+            }
+            else{
+                Cart::add($cart);
+            }
+        }
+        else {$showQtyErr = "The maximum allowed quantity is: ".$qtyTotal;}
         $countCart = Cart::count();
-        $alertAddCart = "<div class='CartNotification__Wrapper-sc-1egoil-0 fhQCQR'>
-                    <a class='btn-close'><i class='fas fa-times'></i></a>
-                    <p class='status'>
-                        <svg stroke='currentColor' fill='currentColor' stroke-width='0' viewBox='0 0 512 512' height='1em' width='1em' xmlns='http://www.w3.org/2000/svg'><path d='M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z'></path></svg>Thêm vào giỏ hàng thành công!
-                    </p>
-                    <a class='btn-view-cart' href='http://localhost/project_websitebanhang/project_user/user/cart'>Xem giỏ hàng và thanh toán</a>
-                </div>";
         $data = array([
-            'addCart' => $addCart,
+            'addCart' => $qtyCart,
             'countCart' => $countCart,
-            'alertAddCart' => $alertAddCart,
+            'prodCate' => $prodCate,
+            'showQtyErr' => $showQtyErr,
         ]);
         echo json_encode($data);
     }
@@ -70,6 +93,7 @@ class CartController extends Controller
             'total' => $total,
             'tax' => $tax,
             'subTotal' => $subTotal,
+            'total' => $total,
         ]);
         echo json_encode($data);
     }

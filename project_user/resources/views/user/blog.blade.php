@@ -79,13 +79,13 @@
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="blog-item">
                                             <div class="bi-pic">
-                                                <img src="{{ $v_blog->img_blog }}" alt="">
+                                                <img src="{{ asset("img/blog/$v_blog->img_blog") }}" alt="">
                                             </div>
                                             <div class="bi-text">
-                                                <a href='{{ url("user/blogdetails/1") }}'>
+                                                <a href='{{ url("user/blogdetails/$v_blog->id") }}'>
                                                     <h4>{{ $v_blog->title_blog }}</h4>
                                                 </a>
-                                                <p>{{ $v_category_blog->title_category_blog }} <span>- {{ $v_blog->post_time }}</span></p>
+                                                <p>{{ $v_category_blog->title_category_blog }} <span>- {{ $v_blog->created_at }}</span></p>
                                             </div>
                                     </div>
                                 </div>

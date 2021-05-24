@@ -50,7 +50,7 @@
                                                 <div class="col-lg-4 col-sm-6">
                                                     <div class="product-item filterProduct">
                                                         <div class="pi-pic">
-                                                            <a href="{{ url("user/productDetail/$v->id") }}"><img src="{{ $v->img }}" alt=""></a>
+                                                            <a href="{{ url("user/productDetail/$v->id") }}"><img src="{{ asset("img/products/$v->img") }}" alt=""></a>
                                                             {{-- <div class="sale pp-sale">Sale</div> --}}
                                                         </div>
                                                         <div class="pi-text">

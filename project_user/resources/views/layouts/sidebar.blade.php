@@ -1,4 +1,4 @@
-<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+<div class="col-lg-3 produts-sidebar-filter">
     <div class="filter-widget">
         <h4 class="fw-title">Categories</h4>
         <ul class="filter-catagories">
@@ -16,7 +16,7 @@
             @endif
         </ul>
     </div>
-    {{-- <div class="filter-widget">
+    <div class="filter-widget">
         <h4 class="fw-title">Brand</h4>
         <div class="fw-brand-check">
             <div class="bc-item">
@@ -48,10 +48,22 @@
                 </label>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="filter-widget">
         <h4 class="fw-title">Price</h4>
         <div class="filter-range-wrap">
+            {{-- <div class="range-slider">
+                <div class="price-input">
+                    <input type="text" id="minamount">
+                    <input type="text" id="maxamount">
+                </div>
+            </div>
+            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                data-min="33" data-max="98">
+                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+            </div> --}}
             <ul class="filterPrice">
                 <li><a class="{{ request()->get('price') == 1 ? "module_active" : "" }}" href="{{ request()->fullUrlWithQuery(['price' => 1]) }}">Less than 1.000$</a></li>
                 <li><a class="{{ request()->get('price') == 2 ? "module_active" : "" }}" href="{{ request()->fullUrlWithQuery(['price' => 2]) }}">1.000$ - 2.000$</a></li>
@@ -62,7 +74,7 @@
             </ul>
         </div>
     </div>
-    {{-- <div class="filter-widget">
+    <div class="filter-widget">
         <h4 class="fw-title">Color</h4>
         <div class="fw-color-choose">
             <div class="cs-item">
@@ -90,8 +102,8 @@
                 <label class="cs-green" for="cs-green">Green</label>
             </div>
         </div>
-    </div> --}}
-    {{-- <div class="filter-widget">
+    </div>
+    <div class="filter-widget">
         <h4 class="fw-title">Size</h4>
         <div class="fw-size-choose">
             <div class="sc-item">
@@ -111,8 +123,8 @@
                 <label for="xs-size">xs</label>
             </div>
         </div>
-    </div> --}}
-    {{-- <div class="filter-widget">
+    </div>
+    <div class="filter-widget">
         <h4 class="fw-title">Tags</h4>
         <div class="fw-tags">
             <a href="#">Towel</a>
@@ -123,5 +135,5 @@
             <a href="#">Men's hats</a>
             <a href="#">Backpack</a>
         </div>
-    </div> --}}
+    </div>
 </div>

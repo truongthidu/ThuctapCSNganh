@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -18,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'img', 'day', 'month', 'year',
     ];
 
     /**
@@ -40,15 +39,13 @@ class User extends Authenticatable
     ];
     
     public static function convertEmail($result){
-        if($result){
-            $result_explode = explode("@", $result);
-            $result = Str::of($result_explode[0])->limit(5, "*****");
-            return $result."@".$result_explode[1];
-        }else return $result;
+        $result_explode = explode("@", $result);
+        $result = Str::of($result_explode[0])->limit(5, "*****");
+        return $result."@".$result_explode[1];
     }
 
     public static function convertPhoneNumber($result){
-        return $result = Str::of($result)->limit(0, "********").Str::substr($result, -4);
+        return $result = Str::of($result)->limit(0, "********").Str::substr($result, -2);
     }
 
     public static function checkIsset($user, $request_user){

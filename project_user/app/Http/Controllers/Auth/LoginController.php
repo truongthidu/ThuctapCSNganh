@@ -55,21 +55,13 @@ class LoginController extends Controller
                 'email' => 'required|email|max:255',
                 'password' => 'required|min:8'
             ],
-            [
-                'required' => ":attribute không được để trống",
-                'min' => ':attribute độ dài tối thiểu :min kí tự',
-                'max' => ':attribute độ dài tối đa :max kí tự'
-            ],
-            [
-                'password' => "Mật khẩu"
-            ]
         );
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)){
             return redirect('/');
         }
         else{
-            return redirect()->back()->with('status', 'Đăng nhập thất bại');
+            return redirect()->back()->with('status', 'Login failed');
         }
     }
 }

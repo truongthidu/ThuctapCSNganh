@@ -1,15 +1,9 @@
 // $(document).ready(function(){
     $("#addCart").click(function(){
         var id = $(this).attr("data-id");
-        var data = {id: id};
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Success !!!',
-            width: 300,
-            showConfirmButton: false,
-            timer: 1500
-        });
+        var qty = $(".qty").val();
+        var data = {id: id, qty: qty};
+        // console.log(qty);
         $.ajax({
             data: data,
             method: "get",
@@ -17,14 +11,28 @@
             dataType: "json",
             success: function(data){
                 data.forEach(element => {
-                    $(".number_shopping_cart").text(element.countCart);
-                    $(".alert-add-cart").html(element.alertAddCart);
-                    // $("body").click(function(){
-                    //     $("div.alert-add-cart").addClass("display-none");
-                    // });
-                    // if($(".alert-add-cart").hasClass("display-none")) {
-                    //     $(".alert-add-cart").removeClass("display-none");
-                    // }
+                    if(element.showQtyErr == ""){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Success !!!',
+                            width: 300,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        $(".number_shopping_cart").text(element.countCart);
+                        $(".showProdCate").text(element.prodCate);
+                        $("#showQtyErr").removeClass("showQtyErr");
+                        $("p#showQtyErr").text(element.showQtyErr);
+                        $(".updateCart").attr("max", element.qtyTotal);
+                    }
+                    else{
+                        $(".number_shopping_cart").text(element.countCart);
+                        $(".showProdCate").text(element.prodCate);
+                        $("#showQtyErr").addClass("showQtyErr");
+                        $("p#showQtyErr").text(element.showQtyErr);
+                    }
+                    console.log(element.addCart);
                 });
             },
             error: function(xhr, thrownError){

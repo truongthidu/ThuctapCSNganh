@@ -19,7 +19,7 @@
                 <div class="form-userinfo d-flex">
                     <label for="username">Username</label>
                     <div class="d-block" style="padding-left: 7px;">
-                        <input type="text" id="username" name="username" size="35" value="{{ isset(Auth::user()->name) ? Auth::user()->name : "" }}" placeholder="E.g: HngPi" class="@error('username') is-invalid @enderror">
+                        <input type="text" id="username" name="username" size="35" value="{{ isset($user->name) ? $user->name : "" }}" placeholder="E.g: HngPi" class="@error('username') is-invalid @enderror">
                         @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -31,41 +31,52 @@
                     <label for="email">Email</label>
                     <div class="d-block">
                         <div class="d-flex">
-                            <div class="convertInfo">{{ isset(Auth::user()->email) ? $convertEmail : "" }}</div>
+                            <div class="convertInfo">{{ isset($user->email) ? $convertEmail : "" }}</div>
                             <a href="javascript:" id="a-email">Thay đổi</a>
                         </div>
                         <div class="d-none show-email">
-                            <input type="email" id="email" name="email" value="{{ isset(Auth::user()->email) ? Auth::user()->email : "" }}" data-id="{{ empty($arrErr) ? 0 : 1 }}" size="35" placeholdedr="E.g: vudanhhungphi@gmail.com" class="@error('email') is-invalid @enderror" id="email">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <input type="email" id="email" name="email" value="{{ isset($user->email) ? $user->email : "" }}" data-id="{{ empty(Session::get("error")) ? 0 : 1 }}" size="35" placeholdedr="E.g: vudanhhungphi@gmail.com" class="@error('email') is-invalid @enderror" id="email">
                         </div>
+                        @error('email')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <span class="alertError">
+                            @if(!empty(Session::get("error")))
+                                @foreach (Session::get("error") as $key => $item)
+                                    @if ($key == "email")
+                                        <strong>{{ $item }}</strong>
+                                    @endif
+                                @endforeach
+                            @else {{ "" }}
+                            @endif
+                        </span>
                     </div>
                 </div>
                 <div class="form-userinfo hiddenInfo">
                     <label for="phoneNumber">Phone number</label>
                     <div class="d-block">
                         <div class="d-flex">
-                            <div class="convertInfo">{{ isset(Auth::user()->phoneNumber) ? $convertPhoneNumber : "" }}</div>
+                            <div class="convertInfo">{{ isset($user->phoneNumber) ? $convertPhoneNumber : "" }}</div>
                             <a href="javascript:" id="a-phoneNumber">Thay đổi</a>
                         </div>
                         <div class="d-none show-phoneNumber">
-                            <input type="text" id="phoneNumber" name="phoneNumber" value="{{ isset(Auth::user()->phoneNumber) ? Auth::user()->phoneNumber : "" }}" placeholder="E.g: 0398391694" size="35" class="@error('phoneNumber') is-invalid @enderror">
-                            @error('phoneNumber')
-                            <span class="invalid-feedback" role="alert">
+                            <input type="text" id="phoneNumber" name="phoneNumber" value="{{ isset($user->phoneNumber) ? $user->phoneNumber : "" }}" placeholder="E.g: 0398391694" size="35" class="@error('phoneNumber') is-invalid @enderror">
+                            
+                        </div>
+                        @error('phoneNumber')
+                            <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        </div>
                     </div>
                 </div>
                 <div class="form-userinfo">
                     <label for="password">Gender</label>
-                    <input type="radio" id="male" name="gender" class="form-radio gender" value="Male" {{ isset(Auth::user()->gender) && Auth::user()->gender == "Male" ? "checked" : "" }}>
+                    <input type="radio" id="male" name="gender" class="form-radio gender" value="Male" {{ isset($user->gender) && $user->gender == "Male" ? "checked" : "" }}>
                         <label for="male">Male</label>
-                    <input type="radio" id="female" name="gender" class="form-radio gender" value="Female" {{ isset(Auth::user()->gender) && Auth::user()->gender == "Female"  ? "checked" : "" }}>
+                    <input type="radio" id="female" name="gender" class="form-radio gender" value="Female" {{ isset($user->gender) && $user->gender == "Female"  ? "checked" : "" }}>
                         <label for="female">Female</label>
                 </div>
                 <div class="form-userinfo">
@@ -81,9 +92,9 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    <span class="alertError">
-                        @if(isset($error))
-                            @foreach ($error as $key => $item)
+                    <span class="alertError m-l-155">
+                        @if(!empty(Session::get("error")))
+                            @foreach (Session::get("error") as $key => $item)
                                 @if ($key == "password")
                                     <strong>{{ $item }}</strong>
                                 @endif
@@ -112,27 +123,27 @@
                 </div>
                 <div class="form-userinfo">
                     <label for="password">Birthday</label>
-                        <select name="day" id="">
-                            @for ($i = 0; $i <= 31; $i++)
-                                <option value="{{ $i }}" {{ isset(Auth::user()->day) && Auth::user()->day == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
-                        <select name="month" id="">
-                            @for ($i = 0; $i <= 12; $i++)
-                                <option value="{{ $i }}" {{ isset(Auth::user()->month) && Auth::user()->month == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
-                        <select name="year" id="">
-                            @for ($i = 1989; $i <= 2021; $i++)
-                                <option value="{{ $i }}" {{ isset(Auth::user()->year) && Auth::user()->year == $i ? "selected" : ""}}>
-                                    {{ $i }}
-                                </option>
-                            @endfor
-                        </select>
+                    <select name="day" id="">
+                        @for ($i = 0; $i <= 31; $i++)
+                            <option value="{{ $i }}" {{ isset($user->day) && $user->day == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="month" id="">
+                        @for ($i = 0; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ isset($user->month) && $user->month == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="year" id="">
+                        @for ($i = 1989; $i <= 2021; $i++)
+                            <option value="{{ $i }}" {{ isset($user->year) && $user->year == $i ? "selected" : ""}}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
                 </div>
                 <div class="form-userinfo">
                     <label for=""></label>
@@ -140,10 +151,9 @@
                 </div>
                 <div class="form-avatar">
                     <div class="upload-avatar">
-                        <div class="upload-circle-avatar" style="background-image: url({{ asset("/storage/images/users/".Auth::user()->img) }})">
-                        </div>
+                        <div class="upload-circle-avatar" style="background-image: url({{ asset("/storage/images/users/".$user->img) }})"></div>
                         <div>
-                            <input type="file" name="image" value="{{ asset("/storage/images/users/".Auth::user()->img) }}" class="@error('image') is-invalid @enderror">
+                            <input type="file" class="d-block" name="image" value="{{ asset("/storage/images/users/".$user->img) }}" class="@error('image') is-invalid @enderror">
                             @error('image')
                                 <span class="invalid-feedback alertErrorImage" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -167,12 +177,6 @@
         });
         $("#a-phoneNumber").click(function(){
             $(".show-phoneNumber").slideToggle(350).removeClass("d-none");
-        });
-        $(".btnUpdate").click(function(){
-            if((($("#email")).attr("data-id")) == 1){
-                $(".show-email").removeClass("d-none");
-                $(".show-phoneNumber").removeClass("d-none");
-            }
         });
     });
 </script>

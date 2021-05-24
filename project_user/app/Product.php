@@ -11,7 +11,10 @@ class Product extends Model
 {
     use Notifiable;
     use SoftDeletes;
-    //
+    protected $table = "products";
+    protected $fillable = [
+        "id", "categoryclothing_id", "name", "price", "qty", "discount", "img", "description", 'detail', 'status_product',
+    ];
 
     public static function checkProductModule($tempCollection){
         $categoryCollection = Categorycollection::all();

@@ -45,20 +45,18 @@
                     </div>
                 </div>
                 <div class="ht-right">
-                    <div class="btn-group login-panel">
+                    <div class="btn-group login-panel d-flex">
                         @if (Auth::check())
-                            <div class="avatar">
-                                <div class="circle-avatar" style="background-image: url({{ asset("/storage/images/users/".Auth::user()->img) }})"></div>
-                            </div>
+                            <span class="upload-circle-avatar avatar-header" style="background-image: url({{ asset("/storage/images/users/".Auth::user()->img) }})"></span>
                             <button type="button" id="btnDropDownUsername" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" style="line-height: 20px">
-                                <a class="dropdown-item" href="{{ url("user/info") }}"><span style="margin-right:20px"><i class="fa fa-user"></i></span>Account</a>
+                                <a class="dropdown-item" href="{{ url("user/info") }}"><span class="m-r-15"><i class="fa fa-user"></i></span>Tài khoản</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                    <span style="margin-right:20px"><i class="fas fa-sign-out-alt"></i></span>{{ __('Logout') }}
+                                    <span class="m-r-15"><i class="fas fa-sign-out-alt"></i></span>{{ __('Đăng xuất') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -108,57 +106,6 @@
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">
-                            {{-- <li class="heart-icon"><a href="#">
-                                    <i class="icon_heart_alt"></i>
-                                    <span>1</span>
-                                </a>
-                            </li>
-                            <li class="cart-icon"><a href="#">
-                                    <i class="icon_bag_alt"></i>
-                                    <span>3</span>
-                                </a>
-                                <div class="cart-hover">
-                                    <div class="select-items">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="select-total">
-                                        <span>total:</span>
-                                        <h5>$120.00</h5>
-                                    </div>
-                                    <div class="select-button">
-                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
-                                    </div>
-                                </div>
-                            </li> --}}
-                            {{-- <li class="cart-price">$150.00</li> --}}
                             <li><a href="{{ url('user/cart') }}"><i class="fa fa-shopping-cart shopping_cart"></i><span class="font_shopping_cart number_shopping_cart">{{ Cart::count() }}</span><span class="font_shopping_cart">Cart</span></a></li>
                             <div class="alert-add-cart display-none"></div>
                         </ul>

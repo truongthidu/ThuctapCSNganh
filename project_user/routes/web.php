@@ -32,9 +32,9 @@ Route::get("user/product/search", "ProductController@search");
 Route::get("user/productDetail/{id}", "ProductDetailController@show");
 
 // ===========================Information User============================== //
-Route::resource("user/info", "UserInfoController");
+Route::resource('user/info', "UserInfoController");
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     // ===========================Shopping Cart============================== //
     Route::get("user/cart", "CartController@show");
     Route::get("user/cart/add/{id}", "CartController@add")->name('cart.add'); //muốn nhận id từ bên "view" thì tạo name() 
@@ -42,4 +42,4 @@ Route::resource("user/info", "UserInfoController");
     Route::get("user/cart/remove/{rowId}", "CartController@remove")->name('cart.remove');
     Route::get("user/cart/destroy", "CartController@destroy");
     Route::post("user/cart/update", "CartController@update")->name('cart.update');
-// });
+});

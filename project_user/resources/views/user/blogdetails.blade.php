@@ -6,51 +6,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="blog-details-inner">
-                    @foreach ($blog_detail as $k_blog_detail => $v_blog_detail)
-                        @if ($k_blog_detail+1 == $id)
-                            <div class="blog-detail-title">
-                                <h2>{{ $v_blog_detail->title_blog_detail }}</h2>
-                                <p>travel <span>- {{ $v_blog_detail->post_time }}</span></p>
-                            </div>
-                            <div class="blog-large-pic">
-                                <img src="{{ $v_blog_detail->img_feature_blog_detail }}" alt="">
-                            </div>
-                            {{ $v_blog_detail->content_blog_detail }}
-                            <div class="blog-detail-desc">
-                                <p>psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                                    amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.
-                                </p>
-                            </div>
-                            <div class="blog-quote">
-                                <p>“ Technology is nothing. What's important is that you have a faith in people, that
-                                    they're basically good and smart, and if you give them tools, they'll do wonderful
-                                    things with them.” <span>- Steven Jobs</span></p>
-                            </div>
-                            <div class="blog-more">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <img src="img/blog/blog-detail-1.jpg" alt="">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <img src="img/blog/blog-detail-2.jpg" alt="">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <img src="img/blog/blog-detail-3.jpg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <p>Sum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet,
-                                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>   
-                        @endif
-                    @endforeach
+                    <div class="blog-detail-title">
+                        <h2>{{ $blog->title_blog }}</h2>
+                        <p>travel <span>- {{ $blog->created_at }}</span></p>
+                    </div>
+                    <div class="blog-large-pic">
+                        <img src="{{ $blog->img_blog }}" alt="">
+                    </div>
+                    <div class="blog-detail-desc">
+                        {!! $blog->content_blog !!}
+                    </div>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>
